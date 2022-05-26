@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import 'bloc/bloccounter.dart';
+import 'bloc/blocevent.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -15,16 +18,57 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const Home(),
+      home: const CounterPage(),
     );
   }
 }
 
-class Home extends StatelessWidget {
-  const Home({Key? key}) : super(key: key);
+class CounterPage extends StatefulWidget {
+  const CounterPage({Key? key}) : super(key: key);
 
   @override
+  State<CounterPage> createState() => _CounterPageState();
+}
+
+class _CounterPageState extends State<CounterPage> {
+  final _counterBloc = CounterBloc();
+  @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      body: SafeArea(
+        child: StreamBuilder<int>(
+            initialData: 0,
+            stream: _counterBloc.counter,
+            builder: (context, AsyncSnapshot<int> snapshot) {
+              return Column(
+                children: [
+                  const Text(
+                    'You have pushed the button this many times:',
+                  ),
+                  Text('${snapshot.data}',
+                      style: Theme.of(context).textTheme.subtitle1),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: <Widget>[
+                      FloatingActionButton(
+                        onPressed: () => _counterBloc.counterEventSink
+                            .add(CounterEvent.incerment),
+                        tooltip: 'Increment',
+                        child: Icon(Icons.add),
+                      ),
+                      const SizedBox(width: 10),
+                      FloatingActionButton(
+                        onPressed: () => _counterBloc.counterEventSink
+                            .add(CounterEvent.decerment),
+                        tooltip: 'Decrement',
+                        child: Icon(Icons.remove),
+                      ),
+                    ],
+                  )
+                ],
+              );
+            }),
+      ),
+    );
   }
 }
