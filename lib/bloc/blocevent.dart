@@ -1,0 +1,1 @@
+enum CounterEvent { incerment, decerment }
