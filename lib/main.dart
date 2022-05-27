@@ -30,6 +30,27 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: Stack(
+          children: [
+            Align(
+              alignment: Alignment.centerLeft,
+              child: IconButton(
+                onPressed: () {},
+                icon: const Icon(CupertinoIcons.shopping_cart),
+              ),
+            ),
+            const Align(
+                alignment: Alignment.topRight,
+                child: CircleAvatar(
+                  backgroundColor: Colors.red,
+                  radius: 12,
+                  child: Text(
+                    '12',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+                  ),
+                )),
+          ],
+        ),
         title: const Text('Shopping Create with Bloc'),
       ),
       body: SafeArea(
@@ -65,13 +86,36 @@ class Home extends StatelessWidget {
                                 )),
                                 Expanded(
                                     child: Row(
-                                  mainAxisSize: MainAxisSize.min,
+                                  mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    // ignore: prefer_interpolation_to_compose_strings
-                                    Text(snap.data![index].price.toString() +
-                                        '\$')
+                                    Text(
+                                      '${snap.data![index].price}\$',
+                                      style: TextStyle(
+                                          color: snap.data![index].off > 0
+                                              ? Colors.red
+                                              : Colors.black,
+                                          decoration: snap.data![index].off > 0
+                                              ? TextDecoration.lineThrough
+                                              : TextDecoration.none),
+                                    ),
+                                    const SizedBox(
+                                      width: 15,
+                                    ),
+                                    snap.data![index].off > 0
+                                        ? Text((snap.data![index].price -
+                                                (snap.data![index].price *
+                                                    snap.data![index].off))
+                                            .toStringAsFixed(2))
+                                        : Container()
                                   ],
-                                ))
+                                )),
+                                IconButton(
+                                    onPressed: () {},
+                                    icon: const Icon(
+                                        CupertinoIcons.shopping_cart)),
+                                const SizedBox(
+                                  height: 10,
+                                )
                               ],
                             ),
                           ),

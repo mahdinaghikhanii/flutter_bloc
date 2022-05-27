@@ -68,7 +68,7 @@ class Product {
             note: "this is new iphone 11 128",
             picurl:
                 'https://www.backmarket.co.uk/cdn-cgi/image/format=auto,quality=75,width=640/https://d1eh9yux7w8iql.cloudfront.net/product_images/290057_15e344e7-089c-4ba1-8871-294737418908.jpg',
-            off: 0),
+            off: 30),
       ];
     });
   }
