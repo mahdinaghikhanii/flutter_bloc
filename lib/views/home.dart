@@ -1,3 +1,4 @@
+import 'package:blocs/bloc/bloctheme.dart';
 import 'package:blocs/views/cart.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -14,29 +15,42 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: Stack(
-          children: [
-            Align(
-              alignment: Alignment.centerLeft,
-              child: IconButton(
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => const Cart()));
-                },
-                icon: const Icon(CupertinoIcons.shopping_cart),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Switch(
+                value: false,
+                onChanged: (val) {
+                  //  BlocProvider.of<BlocTheme>(context).add(ThemeEvents());
+                }),
+          )
+        ],
+        leading: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Stack(
+            children: [
+              Align(
+                alignment: Alignment.centerLeft,
+                child: IconButton(
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => const Cart()));
+                  },
+                  icon: const Icon(CupertinoIcons.shopping_cart),
+                ),
               ),
-            ),
-            Align(
-                alignment: Alignment.topRight,
-                child: CircleAvatar(
-                    backgroundColor: Colors.red,
-                    radius: 12,
-                    child: BlocBuilder<ProductBloc, BlocState>(
-                        builder: (context, state) => Text(
-                            '${BlocProvider.of<ProductBloc>(context).cartProducts.length}',
-                            style: const TextStyle(
-                                fontSize: 11, fontWeight: FontWeight.bold)))))
-          ],
+              Align(
+                  alignment: Alignment.topRight,
+                  child: CircleAvatar(
+                      backgroundColor: Colors.red,
+                      radius: 12,
+                      child: BlocBuilder<ProductBloc, BlocState>(
+                          builder: (context, state) => Text(
+                              '${BlocProvider.of<ProductBloc>(context).cartProducts.length}',
+                              style: const TextStyle(
+                                  fontSize: 11, fontWeight: FontWeight.bold)))))
+            ],
+          ),
         ),
         title: const Text(' Create with Bloc'),
       ),

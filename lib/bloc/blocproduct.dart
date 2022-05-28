@@ -1,3 +1,4 @@
+import 'package:blocs/mudole/theme.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../model/product.dart';
@@ -13,6 +14,14 @@ class AddToCart extends BlocEvent {
 class DelCart extends BlocEvent {
   Product prd;
   DelCart({required this.prd});
+}
+
+class ThemeEvents extends BlocEvent {
+  final AppTheme theme;
+
+  ThemeEvents({
+    required this.theme,
+  });
 }
 
 class ClearCart extends BlocEvent {}
