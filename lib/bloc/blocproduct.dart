@@ -15,8 +15,10 @@ class DelCart extends BlocEvent {
   DelCart({required this.prd});
 }
 
+class ClearCart extends BlocEvent {}
+
 class ProductBloc extends Bloc<BlocEvent, BlocState> {
-  ProductBloc() : super(SuccessState(product: []));
+  ProductBloc() : super(Initial());
   List<Product> cartProducts = [];
 
   @override
@@ -26,6 +28,8 @@ class ProductBloc extends Bloc<BlocEvent, BlocState> {
       if (event is AddToCart) cartProducts.add(event.prd);
 
       if (event is DelCart) cartProducts.remove(event.prd);
+
+      if (event is ClearCart) cartProducts = [];
 
       yield SuccessState(product: cartProducts);
     } on Error catch (e) {
