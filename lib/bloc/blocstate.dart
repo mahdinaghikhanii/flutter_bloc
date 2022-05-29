@@ -1,6 +1,9 @@
+import 'package:flutter/material.dart';
+
 import '../model/product.dart';
 import '../mudole/theme.dart';
 
+//@immutable
 abstract class BlocState {}
 
 class Initial extends BlocState {}
@@ -12,9 +15,9 @@ class SuccessState extends BlocState {
   SuccessState({required this.product});
 }
 
-class ChangeTheme extends BlocState {
-  final AppTheme themeData;
-  ChangeTheme({required this.themeData});
+class ThemeState extends BlocState {
+  final AppTheme theme;
+  ThemeState(this.theme);
 }
 
 class FailState extends BlocState {

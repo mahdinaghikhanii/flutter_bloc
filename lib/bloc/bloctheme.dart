@@ -1,18 +1,23 @@
-import 'package:blocs/mudole/theme.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-import 'blocproduct.dart';
+import '../mudole/theme.dart';
 import 'blocstate.dart';
 
-class BlocTheme extends Bloc<BlocEvent, BlocState> {
-  BlocTheme() : super(Initial());
+class BlocTheme extends Cubit<ThemeState> {
+  BlocTheme() : super(ThemeState(AppTheme.light)) {
+    loadtheme();
+  }
 
-  @override
-  Stream<BlocState> mapEventToState(BlocEvent event) async* {
-    try {
-      if (state is ThemeEvents) yield ChangeTheme(themeData: AppTheme.light);
-    } on Error catch (e) {
-      FailState(fail: e);
-    }
+  void loadtheme() async {
+    SharedPreferences prfs = await SharedPreferences.getInstance();
+    String str = prfs.getString('theme') ?? '';
+    if (str == 'dark') emit(ThemeState(AppTheme.dark));
+  }
+
+  void setTheme(AppTheme appTheme) async {
+    emit(ThemeState(appTheme));
+    await SharedPreferences.getInstance().then((value) =>
+        value.setString('theme', appTheme == AppTheme.dark ? 'dark' : 'light'));
   }
 }

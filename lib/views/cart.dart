@@ -1,9 +1,10 @@
-import 'package:blocs/bloc/blocproduct.dart';
-import 'package:blocs/bloc/blocstate.dart';
-import 'package:blocs/model/product.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../bloc/blocproduct.dart';
+import '../bloc/blocstate.dart';
+import '../model/product.dart';
 
 class Cart extends StatelessWidget {
   const Cart({Key? key}) : super(key: key);
@@ -32,7 +33,7 @@ class Cart extends StatelessWidget {
                                 ? ListView.builder(
                                     itemCount: state.product.length,
                                     itemBuilder: (context, index) {
-                                      Product _prd = state.product[index];
+                                      Product prd = state.product[index];
 
                                       return Card(
                                         child: Padding(
@@ -43,23 +44,23 @@ class Cart extends StatelessWidget {
                                               height: 50,
                                               child: CircleAvatar(
                                                 backgroundImage: NetworkImage(
-                                                  _prd.picurl,
+                                                  prd.picurl,
                                                 ),
                                               ),
                                             ),
                                             const SizedBox(
                                               width: 10,
                                             ),
-                                            Expanded(child: Text(_prd.name)),
+                                            Expanded(child: Text(prd.name)),
                                             Expanded(
                                                 child: Row(children: [
                                               Text(
-                                                _prd.price.toString(),
+                                                prd.price.toString(),
                                                 style: TextStyle(
-                                                    color: _prd.off > 0
+                                                    color: prd.off > 0
                                                         ? Colors.red
                                                         : Colors.black,
-                                                    decoration: _prd.off > 0
+                                                    decoration: prd.off > 0
                                                         ? TextDecoration
                                                             .lineThrough
                                                         : TextDecoration.none),
@@ -67,15 +68,15 @@ class Cart extends StatelessWidget {
                                               const SizedBox(
                                                 width: 10,
                                               ),
-                                              _prd.off > 0
-                                                  ? Text(_prd.off.toString())
+                                              prd.off > 0
+                                                  ? Text(prd.off.toString())
                                                   : Container()
                                             ])),
                                             IconButton(
                                                 onPressed: () => BlocProvider
                                                         .of<ProductBloc>(
                                                             context)
-                                                    .add(DelCart(prd: _prd)),
+                                                    .add(DelCart(prd: prd)),
                                                 icon: const Icon(
                                                     CupertinoIcons.trash))
                                           ]),

@@ -1,5 +1,3 @@
-import 'package:blocs/bloc/bloctheme.dart';
-import 'package:blocs/views/cart.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,6 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../bloc/blocproduct.dart';
 import '../bloc/blocstate.dart';
 import '../model/product.dart';
+import '../mudole/widgets.dart';
+import 'cart.dart';
 
 class Home extends StatelessWidget {
   const Home({Key? key}) : super(key: key);
@@ -15,15 +15,10 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        actions: [
+        actions: const [
           Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Switch(
-                value: false,
-                onChanged: (val) {
-                  //  BlocProvider.of<BlocTheme>(context).add(ThemeEvents());
-                }),
-          )
+              padding: EdgeInsets.only(right: 20, top: 20),
+              child: MDarkLightSwitch())
         ],
         leading: Padding(
           padding: const EdgeInsets.all(8.0),

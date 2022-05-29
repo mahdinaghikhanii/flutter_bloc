@@ -1,12 +1,10 @@
-import 'dart:js';
-
-import 'package:blocs/bloc/blocstate.dart';
-import 'package:blocs/bloc/bloctheme.dart';
-import 'package:blocs/mudole/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'bloc/blocproduct.dart';
+import 'bloc/blocstate.dart';
+import 'bloc/bloctheme.dart';
+import 'mudole/theme.dart';
 import 'views/home.dart';
 
 void main() {
@@ -22,13 +20,12 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<BlocTheme, BlocState>(
-        builder: (BuildContext context, state) {
+    return BlocBuilder<BlocTheme, BlocState>(builder: (_, state) {
       return MaterialApp(
           title: 'Flutter Demo',
           debugShowCheckedModeBanner: false,
-          theme: appThemeData[
-              state is ChangeTheme ? state.themeData : AppTheme.light],
+          theme:
+              appThemeData[state is ThemeState ? state.theme : AppTheme.light],
           home: const Home());
     });
   }
