@@ -6,7 +6,7 @@ final Map<AppTheme, ThemeData> appThemeData = {
   AppTheme.light: ThemeData(
       brightness: Brightness.light,
       primarySwatch: Colors.blue,
-      appBarTheme: AppBarTheme(backgroundColor: Colors.grey),
+      appBarTheme: const AppBarTheme(backgroundColor: Colors.grey),
       primaryColor: Colors.blue,
       scaffoldBackgroundColor: Colors.white,
       bottomAppBarColor: Colors.grey[100],
